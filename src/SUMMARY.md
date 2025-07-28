@@ -7,6 +7,6 @@
 - [Second Chapter](./chapter_1.md)
    - [Sub Chapter](./chapter_1.md)
 
-# Title of Another Part
+# Servers 
 
-- [Another Chapter](./chapter_1.md)
+- [Chapter 1](./chapter_server_slurm.md)
