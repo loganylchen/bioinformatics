@@ -10,3 +10,6 @@
 # Servers 
 
 - [Chapter 1](./chapter_server_slurm.md)
+
+# Github
+- [Chapter 1](./chapter_github_action.md)
