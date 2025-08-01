@@ -1,15 +1,12 @@
-# Summary
-
-- [Chapter 1](./chapter_1.md)
-# Title of Part
-
-- [First Chapter](./chapter_1.md)
-- [Second Chapter](./chapter_1.md)
-   - [Sub Chapter](./chapter_1.md)
 
 # Servers 
 
-- [Chapter 1](./chapter_server_slurm.md)
+- [Chapter 1](./servers/chapter_server_slurm.md)
 
 # Github
-- [Chapter 1](./chapter_github_action.md)
+- [Chapter 1](./github/chapter_github_action.md)
+
+
+# VSCODE
+
+- [Chapter 1](./vscode-settings/chapter_vscode_settings.md)
