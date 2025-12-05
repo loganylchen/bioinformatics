@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Fastq QC</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../favicon.svg">
+                        <link rel="shortcut icon" href="../favicon.png">
+                <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+                <link rel="stylesheet" href="../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Bioinformatics</li><li class="chapter-item expanded "><a href="../bioinformatics/rna-seq_introduction.html"><strong aria-hidden="true">1.</strong> RNA-seq</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bioinformatics/rna-seq_raw_fastq_qc.html" class="active"><strong aria-hidden="true">1.1.</strong> Fastq QC</a></li><li class="chapter-item expanded "><a href="../bioinformatics/rna-seq_alingment_star.html"><strong aria-hidden="true">1.2.</strong> Splice aware alignments</a></li><li class="chapter-item expanded "><a href="../bioinformatics/rna-seq_qc_on_alignments.html"><strong aria-hidden="true">1.3.</strong> QC on Bams</a></li><li class="chapter-item expanded "><a href="../bioinformatics/rna-seq_quantification.html"><strong aria-hidden="true">1.4.</strong> Gene Quantification</a></li><li class="chapter-item expanded "><a href="../bioinformatics/rna-seq_DEG.html"><strong aria-hidden="true">1.5.</strong> Differential Expressed Gene Identification</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Servers</li><li class="chapter-item expanded affix "><li class="part-title">Github</li><li class="chapter-item expanded affix "><li class="part-title">VSCODE</li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                                                <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="raw-fastq-quality-control"><a class="header" href="#raw-fastq-quality-control">Raw Fastq Quality Control</a></h2>
+<p>To perform quality control on raw FASTQ files using fastp, follow these steps:</p>
+<h3 id="step-1-install-fastp"><a class="header" href="#step-1-install-fastp">Step 1: Install fastp</a></h3>
+<p>Using conda or mamba to install fastp:</p>
+<pre><code class="language-bash"># conda
+conda install -c bioconda fastp
+# mamba
+mamba install -c bioconda fastp
+</code></pre>
+<h3 id="step-2-run-fastp-for-quality-control"><a class="header" href="#step-2-run-fastp-for-quality-control">Step 2: Run fastp for Quality Control</a></h3>
+<p>For paired-end reads, run fastp with the following command:</p>
+<pre><code class="language-bash">fastp -i sample_R1.fastq.gz -I sample_R2.fastq.gz \
+      -o sample_R1.clean.fastq.gz -O sample_R2.clean.fastq.gz \
+      -h sample_fastp.html -j sample_fastp.json \
+      --thread 8
+</code></pre>
+<p>Parameters:</p>
+<ul>
+<li><code>-i</code>: Input R1 FASTQ file</li>
+<li><code>-I</code>: Input R2 FASTQ file (for paired-end)</li>
+<li><code>-o</code>: Output R1 FASTQ file after QC</li>
+<li><code>-O</code>: Output R2 FASTQ file after QC</li>
+<li><code>-h</code>: HTML report file</li>
+<li><code>-j</code>: JSON report file</li>
+<li><code>--thread</code>: Number of threads to use</li>
+</ul>
+<h3 id="step-3-review-quality-control-report"><a class="header" href="#step-3-review-quality-control-report">Step 3: Review Quality Control Report</a></h3>
+<p>fastp automatically performs several QC steps including:</p>
+<ul>
+<li>Adapter trimming</li>
+<li>Quality filtering</li>
+<li>Length filtering</li>
+<li>Per-read quality pruning</li>
+<li>Base correction for overlapped paired-end reads</li>
+</ul>
+<p>Open the HTML report (<code>sample_fastp.html</code>) to review detailed quality metrics before and after filtering.</p>
+<h3 id="step-4-additional-options-optional"><a class="header" href="#step-4-additional-options-optional">Step 4: Additional Options (Optional)</a></h3>
+<p>You can customize fastp with additional parameters:</p>
+<pre><code class="language-bash">fastp -i sample_R1.fastq.gz -I sample_R2.fastq.gz \
+      -o sample_R1.clean.fastq.gz -O sample_R2.clean.fastq.gz \
+      -h sample_fastp.html -j sample_fastp.json \
+      --qualified_quality_phred 20 \
+      --length_required 50 \
+      --thread 8
+</code></pre>
+<ul>
+<li><code>--qualified_quality_phred</code>: Minimum quality value (default: 15)</li>
+<li><code>--length_required</code>: Minimum read length to keep (default: 15)</li>
+</ul>
+<p>Paper: https://academic.oup.com/bioinformatics/article/34/17/i884/5093234</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../bioinformatics/rna-seq_introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../bioinformatics/rna-seq_alingment_star.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../bioinformatics/rna-seq_introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../bioinformatics/rna-seq_alingment_star.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>

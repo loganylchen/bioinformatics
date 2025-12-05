@@ -1,0 +1,286 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Differential Expressed Gene Identification</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../favicon.svg">
+                        <link rel="shortcut icon" href="../favicon.png">
+                <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+                <link rel="stylesheet" href="../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Bioinformatics</li><li class="chapter-item expanded "><a href="../bioinformatics/rna-seq_introduction.html"><strong aria-hidden="true">1.</strong> RNA-seq</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bioinformatics/rna-seq_raw_fastq_qc.html"><strong aria-hidden="true">1.1.</strong> Fastq QC</a></li><li class="chapter-item expanded "><a href="../bioinformatics/rna-seq_alingment_star.html"><strong aria-hidden="true">1.2.</strong> Splice aware alignments</a></li><li class="chapter-item expanded "><a href="../bioinformatics/rna-seq_qc_on_alignments.html"><strong aria-hidden="true">1.3.</strong> QC on Bams</a></li><li class="chapter-item expanded "><a href="../bioinformatics/rna-seq_quantification.html"><strong aria-hidden="true">1.4.</strong> Gene Quantification</a></li><li class="chapter-item expanded "><a href="../bioinformatics/rna-seq_DEG.html" class="active"><strong aria-hidden="true">1.5.</strong> Differential Expressed Gene Identification</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Servers</li><li class="chapter-item expanded affix "><li class="part-title">Github</li><li class="chapter-item expanded affix "><li class="part-title">VSCODE</li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                                                <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="deg-analysis-with-deseq2-input-featurecounts-output"><a class="header" href="#deg-analysis-with-deseq2-input-featurecounts-output">DEG analysis with DESeq2 (input: featureCounts output)</a></h2>
+<p>Summary: create a conda R environment with RStudio, install DESeq2, then run a reproducible R script that reads featureCounts output, performs QC, differential expression, shrinkage, and exports results.</p>
+<p>Please refer to this tutorial <a href="https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">DESeq2</a></p>
+<h3 id="step1-create-conda-env-and-install-r--rstudio"><a class="header" href="#step1-create-conda-env-and-install-r--rstudio">Step1 Create conda env and install R / RStudio</a></h3>
+<p>Run in a terminal:</p>
+<pre><code class="language-bash">conda install -c conda-forge -c bioconda r-base=4.2 rstudio r-essentials -y
+# launch RStudio (optional)
+rstudio
+</code></pre>
+<p>Note: Bioconductor packages are best installed from within R using BiocManager (below).</p>
+<h3 id="step2-install-r-packages-from-inside-r-or-rstudio"><a class="header" href="#step2-install-r-packages-from-inside-r-or-rstudio">Step2 Install R packages (from inside R or RStudio)</a></h3>
+<p>Open R and run:</p>
+<pre><code class="language-r">install.packages(&quot;BiocManager&quot;)
+BiocManager::install(c(&quot;DESeq2&quot;,&quot;apeglm&quot;,&quot;tximport&quot;,&quot;pheatmap&quot;,&quot;RColorBrewer&quot;,&quot;vsn&quot;))
+</code></pre>
+<ul>
+<li>DESeq2: core DEA</li>
+<li>apeglm: LFC shrinkage</li>
+<li>tximport: only if importing transcript-level results (not needed for featureCounts gene counts)</li>
+<li>pheatmap / RColorBrewer / vsn: plotting / normalization helpers</li>
+</ul>
+<h3 id="step3-prepare-featurecounts-input"><a class="header" href="#step3-prepare-featurecounts-input">Step3 Prepare featureCounts input</a></h3>
+<blockquote>
+<p>Try by yourself
+Finally generate a counts_file (<strong>featureCounts_counts.txt</strong>) for next analysis</p>
+</blockquote>
+<h3 id="step4-featurecounts-merged-file"><a class="header" href="#step4-featurecounts-merged-file">Step4 FeatureCounts merged file</a></h3>
+<p>Save as <code>deseq2_featurecounts_DEA.R</code> and edit <code>counts_file</code> and <code>coldata</code> accordingly.</p>
+<pre><code class="language-r"># deseq2_featurecounts_DEA.R
+library(DESeq2)
+library(apeglm)
+library(pheatmap)
+library(RColorBrewer)
+library(vsn)
+
+# ---- user settings ----
+counts_file &lt;- &quot;featureCounts_counts.txt&quot; # merged output
+# Define sample table: sample names (matching cols) and condition
+coldata &lt;- data.frame(
+    sample = c(&quot;sampleA_rep1&quot;,&quot;sampleA_rep2&quot;,&quot;sampleB_rep1&quot;,&quot;sampleB_rep2&quot;),
+    condition = factor(c(&quot;A&quot;,&quot;A&quot;,&quot;B&quot;,&quot;B&quot;))
+)
+rownames(coldata) &lt;- coldata$sample
+# ------------------------
+
+# Read featureCounts merged file (skip comment lines starting with '#')
+fc &lt;- read.table(counts_file, header = TRUE, sep = &quot;\t&quot;, comment.char=&quot;#&quot;, stringsAsFactors=FALSE)
+
+# Typical featureCounts layout: Geneid, Chr, Start, End, Strand, Length, sample1, sample2, ...
+# Find first counts column (usually where column names match sample names or numeric)
+# If counts start at col 7:
+counts &lt;- as.matrix(fc[, 7:ncol(fc)])
+rownames(counts) &lt;- fc$Geneid
+# Optionally subset columns to match coldata
+counts &lt;- counts[, rownames(coldata)]
+
+# Create DESeq2 dataset
+dds &lt;- DESeqDataSetFromMatrix(countData = counts,
+                                        colData = coldata,
+                                        design = ~ condition)
+
+# Prefiltering: remove very low counts
+keep &lt;- rowSums(counts(dds)) &gt;= 10
+dds &lt;- dds[keep, ]
+
+# Run DESeq
+dds &lt;- DESeq(dds)
+
+# Variance-stabilizing transformation for QC and PCA
+vsd &lt;- vst(dds, blind=FALSE)
+
+
+# Results table
+res &lt;- results(dds, alpha=0.05)           # default: condition B vs A depending on level order
+res &lt;- lfcShrink(dds, coef=2, type=&quot;apeglm&quot;)  # adjust coef number to match your design
+resOrdered &lt;- res[order(res$padj), ]
+
+# Export results
+write.csv(as.data.frame(resOrdered), file=&quot;deseq2_results.csv&quot;)
+
+# Top genes heatmap
+topGenes &lt;- head(order(rowVars(assay(vsd)), decreasing=TRUE), 50)
+mat &lt;- assay(vsd)[topGenes, ]
+mat &lt;- mat - rowMeans(mat)
+
+
+# Save transformed counts for downstream plots
+write.csv(as.data.frame(assay(vsd)), file=&quot;vsd_normalized_counts.csv&quot;)
+</code></pre>
+<p>Notes:</p>
+<ul>
+<li>Adjust <code>coldata</code> to reflect your samples and experimental design (use exact column names).</li>
+<li>The <code>coef</code> in lfcShrink depends on the ordering of levels in your design; check <code>resultsNames(dds)</code> to pick correct coefficient.</li>
+<li>Filtering threshold (here rowSums &gt;= 10) can be changed depending on depth/replicates.</li>
+</ul>
+<p>This provides a concise, reproducible pipeline for DESeq2 starting from featureCounts output. Adjust sample metadata and design formula to your experiment.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../bioinformatics/rna-seq_quantification.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../bioinformatics/rna-seq_quantification.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
